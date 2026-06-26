@@ -1,6 +1,4 @@
-﻿/* ======================================================
-   PRINCE CLARENCE LABAO — PORTFOLIO
-====================================================== */
+
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
@@ -282,3 +280,35 @@ a { text-decoration: none; color: inherit; }
     .carousel-wrapper { gap: .7rem; }
     .carousel-arrow { width: 38px; height: 38px; font-size: .85rem; }
 }
+
+/* ─── CODE MODAL ──────────────────────────────── */
+.code-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.82);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);z-index:9999;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:opacity .25s ease;}
+.code-modal-overlay.open{opacity:1;pointer-events:all;}
+.code-modal{background:#0d0d1e;border:1px solid rgba(124,58,237,.35);border-radius:16px;width:min(700px,95vw);max-height:88vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 32px 90px rgba(0,0,0,.95),0 0 0 1px rgba(124,58,237,.18);transform:scale(.92) translateY(24px);transition:transform .32s cubic-bezier(.34,1.56,.64,1);}
+.code-modal-overlay.open .code-modal{transform:scale(1) translateY(0);}
+.cm-header{display:flex;align-items:center;gap:.75rem;padding:.65rem 1rem;background:#12112a;border-bottom:1px solid rgba(124,58,237,.22);flex-shrink:0;}
+.cm-header-dots{display:flex;gap:.38rem;}
+.cm-dot{width:12px;height:12px;border-radius:50%;display:inline-block;}
+.cm-red{background:#ff5f57;}.cm-yellow{background:#febc2e;}.cm-green{background:#28c840;}
+.cm-title-bar{flex:1;text-align:center;font-size:.8rem;color:var(--text-muted);font-family:'Courier New',monospace;letter-spacing:.03em;}
+.cm-close{background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:.95rem;padding:.28rem .55rem;border-radius:7px;transition:all .18s;line-height:1;}
+.cm-close:hover{background:rgba(255,95,87,.15);color:#ff5f57;}
+.cm-body{overflow-y:auto;padding:1.4rem 1.6rem;display:flex;flex-direction:column;gap:1.1rem;}
+.cm-top-row{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;}
+.cm-project-name{font-size:1.45rem;font-weight:800;color:var(--accent-light);margin:0;flex:1;}
+.cm-status-badge{display:inline-flex;align-items:center;gap:.35rem;background:rgba(124,58,237,.14);border:1px solid rgba(124,58,237,.38);color:var(--accent-light);padding:.28rem .8rem;border-radius:20px;font-size:.73rem;font-weight:700;white-space:nowrap;}
+.cm-desc{color:var(--text-muted);font-size:.88rem;line-height:1.65;margin:0;}
+.cm-tags{display:flex;gap:.38rem;flex-wrap:wrap;}
+.cm-tags span{background:rgba(124,58,237,.1);border:1px solid rgba(124,58,237,.25);color:var(--accent-light);padding:.18rem .6rem;border-radius:20px;font-size:.72rem;font-weight:600;}
+.cm-code-wrap{background:#07060f;border:1px solid rgba(124,58,237,.2);border-radius:10px;overflow:hidden;}
+.cm-code-topbar{padding:.44rem .9rem;background:#0e0d20;border-bottom:1px solid rgba(124,58,237,.15);display:flex;justify-content:space-between;align-items:center;}
+.cm-code-lang{font-size:.72rem;color:var(--accent-light);display:flex;align-items:center;gap:.35rem;}
+.cm-code-label{font-size:.68rem;color:var(--text-muted);background:rgba(124,58,237,.12);padding:.12rem .48rem;border-radius:4px;}
+.cm-pre{padding:1.1rem;font-family:'Courier New',monospace;font-size:.74rem;color:#c4b5fd;line-height:1.75;overflow-x:auto;margin:0;white-space:pre;}
+.cm-footer-row{display:flex;align-items:center;gap:.9rem;flex-wrap:wrap;padding-top:.8rem;border-top:1px solid rgba(124,58,237,.14);}
+.cm-gh-btn{font-size:.83rem!important;padding:.52rem 1.15rem!important;}
+.cm-coming-note{font-size:.78rem;color:var(--text-muted);font-style:italic;}
+/* CV TOAST */
+.cv-toast{position:fixed;bottom:1.8rem;left:50%;transform:translateX(-50%) translateY(12px);background:linear-gradient(135deg,#1a0a2e,#2d1b69);border:1px solid rgba(124,58,237,.45);color:var(--accent-light);padding:.65rem 1.4rem;border-radius:30px;font-size:.85rem;font-weight:600;z-index:10000;opacity:0;pointer-events:none;transition:all .35s cubic-bezier(.34,1.56,.64,1);white-space:nowrap;box-shadow:0 8px 32px rgba(0,0,0,.5);}
+.cv-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+@media(max-width:480px){.cm-body{padding:1rem 1.1rem;}.cm-project-name{font-size:1.15rem;}.cm-footer-row{flex-direction:column;align-items:flex-start;}.cv-toast{font-size:.78rem;padding:.55rem 1rem;white-space:normal;text-align:center;width:80vw;}}
