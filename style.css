@@ -1,4 +1,6 @@
-
+/* ======================================================
+   PRINCE CLARENCE LABAO — PORTFOLIO
+====================================================== */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
@@ -36,6 +38,7 @@ a { text-decoration: none; color: inherit; }
 .snap-container {
     height: 100vh; overflow-y: scroll;
     scroll-snap-type: y mandatory; scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
 }
 .snap-container::-webkit-scrollbar { width: 5px; }
 .snap-container::-webkit-scrollbar-track { background: var(--bg); }
@@ -261,24 +264,51 @@ a { text-decoration: none; color: inherit; }
 .footer-socials a:hover { background: var(--accent); color: #fff; border-color: var(--accent); transform: translateY(-3px); }
 .footer-copy { font-size: .74rem; color: var(--text-muted); }
 
+/* ── 900px (Tablet / Landscape Mobile) ─────────── */
 @media (max-width: 900px) {
     .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
     .hero-photo-wrap { display: none; }
     .hero-text { text-align: center; }
     .hero-actions, .hero-socials { justify-content: center; }
     .project-card { grid-template-columns: 1fr; height: auto; }
-    .project-media { min-height: 260px; }
-    .snap-section { height: auto; min-height: 100vh; overflow-y: auto; }
-    .snap-container { scroll-snap-type: none; }
+    .project-media { min-height: 240px; }
+    /* Allow sections to exceed viewport height on mobile */
+    .snap-section { height: auto; min-height: 100vh; min-height: 100dvh; overflow: visible; padding-bottom: 3rem; }
+    .snap-container { scroll-snap-type: none; height: 100vh; height: 100dvh; }
+    .footer { min-height: auto; padding: 3.5rem 2rem; }
+    .scroll-down { display: none; }
+    .contact-grid { gap: 2rem; }
+    .about-grid { gap: 1.5rem; }
 }
+
+/* ── 700px (Portrait Mobile) ────────────────────── */
 @media (max-width: 700px) {
+    :root { --nav-h: 62px; }
     .nav-links, .nav-cta { display: none; }
     .hamburger { display: flex; }
     .mobile-menu { display: flex; }
+    .snap-section { padding-left: 1.2rem; padding-right: 1.2rem; }
+    .section-container { padding: 0; }
+    .section-title { margin-bottom: 1.2rem; }
+    /* Hero */
+    .hero-desc { font-size: .9rem; max-width: 100%; }
+    .hero-actions { flex-direction: column; align-items: center; gap: .7rem; }
+    .hero-actions .btn-main,
+    .hero-actions .btn-outline { width: 100%; max-width: 290px; justify-content: center; }
+    /* Projects */
+    .carousel-wrapper { gap: .55rem; }
+    .carousel-arrow { width: 36px; height: 36px; font-size: .82rem; }
+    .project-info { padding: 1rem 1.1rem; }
+    .project-media { min-height: 210px; }
+    /* Chess */
+    .chess-topbar, .chess-captured, .chess-board { width: 224px; }
+    .chess-board { height: 224px; }
+    .sq { font-size: 1.32rem; }
+    /* Contact */
     .form-row { grid-template-columns: 1fr; }
-    .section-container { padding: 0 1rem; }
-    .carousel-wrapper { gap: .7rem; }
-    .carousel-arrow { width: 38px; height: 38px; font-size: .85rem; }
+    .contact-detail { margin-bottom: .85rem; }
+    /* Footer */
+    .footer { padding: 2.8rem 1.5rem; }
 }
 
 /* ─── CODE MODAL ──────────────────────────────── */
@@ -311,4 +341,50 @@ a { text-decoration: none; color: inherit; }
 /* CV TOAST */
 .cv-toast{position:fixed;bottom:1.8rem;left:50%;transform:translateX(-50%) translateY(12px);background:linear-gradient(135deg,#1a0a2e,#2d1b69);border:1px solid rgba(124,58,237,.45);color:var(--accent-light);padding:.65rem 1.4rem;border-radius:30px;font-size:.85rem;font-weight:600;z-index:10000;opacity:0;pointer-events:none;transition:all .35s cubic-bezier(.34,1.56,.64,1);white-space:nowrap;box-shadow:0 8px 32px rgba(0,0,0,.5);}
 .cv-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
-@media(max-width:480px){.cm-body{padding:1rem 1.1rem;}.cm-project-name{font-size:1.15rem;}.cm-footer-row{flex-direction:column;align-items:flex-start;}.cv-toast{font-size:.78rem;padding:.55rem 1rem;white-space:normal;text-align:center;width:80vw;}}
+/* ── 480px (Small Phones) ───────────────────────── */
+@media (max-width: 480px) {
+    .snap-section { padding-left: .9rem; padding-right: .9rem; }
+    /* Hero */
+    .hero-name { font-size: clamp(1.85rem, 9.5vw, 2.5rem); }
+    .role-badge { font-size: .78rem; padding: .35rem .9rem; }
+    .hero-desc { font-size: .84rem; }
+    .hero-socials a { width: 38px; height: 38px; font-size: .9rem; }
+    /* Section headings */
+    .section-title { font-size: clamp(1.4rem, 7vw, 1.9rem); margin-bottom: .9rem; }
+    .section-label { font-size: .68rem; }
+    /* About */
+    .about-bio p { font-size: .84rem; }
+    .about-tags span { font-size: .73rem; padding: .25rem .65rem; }
+    .skill-label { font-size: .8rem; }
+    .tech-icon { font-size: 1.1rem; padding: .4rem .55rem; }
+    .tech-icon span { font-size: .56rem; }
+    /* Projects */
+    .carousel-arrow { width: 30px; height: 30px; font-size: .72rem; }
+    .carousel-wrapper { gap: .3rem; }
+    .project-info { padding: .85rem .9rem; }
+    .project-info h3 { font-size: 1rem; }
+    .project-info p { font-size: .78rem; }
+    /* Chess scale down */
+    .chess-wrap { padding: 3px 4px; gap: 1px; }
+    .chess-topbar, .chess-captured, .chess-board { width: 196px; }
+    .chess-board { height: 196px; }
+    .sq { font-size: 1.12rem; }
+    /* Yomi scale down */
+    .yomi-card { width: 64px; height: 80px; font-size: 1.38rem; }
+    .yomi-chosen { width: 46px; height: 56px; font-size: 1.45rem; }
+    /* Contact */
+    .contact-intro { font-size: .85rem; }
+    .cd-icon { width: 36px; height: 36px; font-size: .82rem; }
+    .contact-detail h4 { font-size: .82rem; }
+    .contact-detail a { font-size: .77rem; }
+    .contact-detail { gap: .65rem; }
+    /* Buttons */
+    .btn-main { padding: .62rem 1.3rem; font-size: .87rem; }
+    .btn-outline { padding: .62rem 1.3rem; font-size: .87rem; }
+    /* Code modal */
+    .cm-body { padding: 1rem 1.1rem; }
+    .cm-project-name { font-size: 1.15rem; }
+    .cm-footer-row { flex-direction: column; align-items: flex-start; }
+    /* CV toast */
+    .cv-toast { font-size: .78rem; padding: .55rem 1rem; white-space: normal; text-align: center; width: 80vw; }
+}
