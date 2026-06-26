@@ -55,9 +55,9 @@
                 <a href="#contact" class="btn-outline">Contact Me</a>
             </div>
             <div class="hero-socials">
-                <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://www.facebook.com/R3Rence" title="Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/R3Rence" title="Instagram" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                <a href="https://github.com/NMagneticR" title="GitHub" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
             </div>
         </div>
         <div class="hero-photo-wrap">
@@ -111,16 +111,16 @@
                     <span><i class="fas fa-graduation-cap"></i> IT Student</span>
                     <span><i class="fas fa-briefcase"></i> Open to Work</span>
                 </div>
-                <a href="#" class="btn-main" style="margin-top:1.2rem"><i class="fas fa-download"></i> Download CV</a>
+                <a href="#" id="downloadCVBtn" class="btn-main" style="margin-top:1.2rem"><i class="fas fa-download"></i> Download CV</a>
             </div>
             <div class="about-skills">
                 <h3>My Skills</h3>
-                <div class="skill-item"><div class="skill-label"><span>HTML &amp; CSS</span><span>90%</span></div><div class="skill-bar"><div class="skill-fill" data-width="90"></div></div></div>
-                <div class="skill-item"><div class="skill-label"><span>JavaScript</span><span>70%</span></div><div class="skill-bar"><div class="skill-fill" data-width="70"></div></div></div>
-                <div class="skill-item"><div class="skill-label"><span>Python</span><span>75%</span></div><div class="skill-bar"><div class="skill-fill" data-width="75"></div></div></div>
-                <div class="skill-item"><div class="skill-label"><span>React</span><span>55%</span></div><div class="skill-bar"><div class="skill-fill" data-width="55"></div></div></div>
+                <div class="skill-item"><div class="skill-label"><span>HTML &amp; CSS</span><span>50%</span></div><div class="skill-bar"><div class="skill-fill" data-width="50"></div></div></div>
+                <div class="skill-item"><div class="skill-label"><span>JavaScript</span><span>19%</span></div><div class="skill-bar"><div class="skill-fill" data-width="19"></div></div></div>
+                <div class="skill-item"><div class="skill-label"><span>Python</span><span>43%</span></div><div class="skill-bar"><div class="skill-fill" data-width="43"></div></div></div>
+                <div class="skill-item"><div class="skill-label"><span>React</span><span>20%</span></div><div class="skill-bar"><div class="skill-fill" data-width="20"></div></div></div>
                 <div class="skill-item"><div class="skill-label"><span>UI / UX Design</span><span>65%</span></div><div class="skill-bar"><div class="skill-fill" data-width="65"></div></div></div>
-                <div class="skill-item"><div class="skill-label"><span>Git &amp; GitHub</span><span>60%</span></div><div class="skill-bar"><div class="skill-fill" data-width="60"></div></div></div>
+                <div class="skill-item"><div class="skill-label"><span>Git &amp; GitHub</span><span>45%</span></div><div class="skill-bar"><div class="skill-fill" data-width="45"></div></div></div>
                 <div class="tech-icons">
                     <div class="tech-icon"><i class="fab fa-html5"></i><span>HTML5</span></div>
                     <div class="tech-icon"><i class="fab fa-css3-alt"></i><span>CSS3</span></div>
@@ -168,7 +168,7 @@
                             <h3>Chess</h3>
                             <p>Fully playable chess — 1v1 local or vs CPU (minimax AI with positional scoring). Click a piece to see legal moves, click to move. Includes check, checkmate &amp; stalemate.</p>
                             <div class="project-tags"><span>JavaScript</span><span>AI / Minimax</span><span>HTML</span></div>
-                            <a href="#" class="btn-outline" style="font-size:.78rem;padding:.38rem .9rem">View Code</a>
+                            <a href="#" class="btn-outline view-code-btn" data-project="chess" style="font-size:.78rem;padding:.38rem .9rem"><i class="fas fa-code" style="margin-right:.3rem"></i>View Code</a>
                         </div>
                     </div>
 
@@ -207,7 +207,7 @@
                             <h3>Simple Yomi Hustle</h3>
                             <p>Card-based fighting game: Attack beats Grab, Block beats Attack, Grab beats Block. Easy vs random CPU, Hard mode learns your patterns. First to 3 wins!</p>
                             <div class="project-tags"><span>Game Logic</span><span>JavaScript</span><span>AI</span></div>
-                            <a href="#" class="btn-outline" style="font-size:.78rem;padding:.38rem .9rem">View Code</a>
+                            <a href="#" class="btn-outline view-code-btn" data-project="yomi" style="font-size:.78rem;padding:.38rem .9rem"><i class="fas fa-code" style="margin-right:.3rem"></i>View Code</a>
                         </div>
                     </div>
 
@@ -238,7 +238,7 @@
                             <h3>Paint</h3>
                             <p>Browser drawing app — pencil, eraser, flood fill, line, rectangle, circle tools. Undo/redo support, color picker, brush size, and PNG export.</p>
                             <div class="project-tags"><span>Canvas API</span><span>JavaScript</span><span>HTML</span></div>
-                            <a href="#" class="btn-outline" style="font-size:.78rem;padding:.38rem .9rem">View Code</a>
+                            <a href="#" class="btn-outline view-code-btn" data-project="paint" style="font-size:.78rem;padding:.38rem .9rem"><i class="fas fa-code" style="margin-right:.3rem"></i>View Code</a>
                         </div>
                     </div>
 
@@ -251,8 +251,8 @@
             <span class="indicator"></span>
             <span class="indicator"></span>
         </div>
-        <div class="projects-more">
-            <a href="#" class="btn-outline"><i class="fab fa-github"></i>&nbsp; See All on GitHub</a>
+        <div class="projects-more" style="display:none">
+            <a href="https://github.com/NMagneticR" class="btn-outline" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i>&nbsp; See All on GitHub</a>
         </div>
     </div>
 </section>
@@ -292,15 +292,52 @@
         <p class="footer-name">Prince Clarence Labao</p>
         <p class="footer-role">Front-End Developer</p>
         <div class="footer-socials">
-            <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://www.facebook.com/R3Rence" title="Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/R3Rence" title="Instagram" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+            <a href="https://github.com/NMagneticR" title="GitHub" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
         </div>
         <p class="footer-copy">&copy; 2026 Prince Clarence Labao. All rights reserved.</p>
     </div>
 </footer>
 
 </div><!-- end snap-container -->
+
+<!-- CODE MODAL -->
+<div class="code-modal-overlay" id="codeModalOverlay" aria-modal="true" role="dialog">
+    <div class="code-modal">
+        <div class="cm-header">
+            <div class="cm-header-dots">
+                <span class="cm-dot cm-red"></span>
+                <span class="cm-dot cm-yellow"></span>
+                <span class="cm-dot cm-green"></span>
+            </div>
+            <span class="cm-title-bar" id="cmTitleBar">project.js</span>
+            <button class="cm-close" id="cmClose" aria-label="Close"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cm-body">
+            <div class="cm-top-row">
+                <h2 class="cm-project-name" id="cmProjectName"></h2>
+                <span class="cm-status-badge"><i class="fas fa-code-branch"></i> Repo Coming Soon</span>
+            </div>
+            <p class="cm-desc" id="cmDesc"></p>
+            <div class="cm-tags" id="cmTags"></div>
+            <div class="cm-code-wrap">
+                <div class="cm-code-topbar">
+                    <span class="cm-code-lang"><i class="fas fa-terminal"></i>&nbsp;JavaScript snippet</span>
+                    <span class="cm-code-label">preview</span>
+                </div>
+                <pre class="cm-pre" id="cmPre"></pre>
+            </div>
+            <div class="cm-footer-row">
+                <a href="https://github.com/NMagneticR" target="_blank" rel="noopener noreferrer" class="btn-main cm-gh-btn"><i class="fab fa-github"></i> GitHub Profile</a>
+                <span class="cm-coming-note">Repositories will be published soon.</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CV TOAST -->
+<div class="cv-toast" id="cvToast"><i class="fas fa-hourglass-half"></i>&nbsp; CV not yet available — check back soon!</div>
 
 <script>
 'use strict';
@@ -642,6 +679,70 @@ function paintRedo(){if(paintIdx<paintHist.length-1){paintIdx++;paintCtx.putImag
     document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='z'){e.preventDefault();paintUndo();}if((e.ctrlKey||e.metaKey)&&e.key==='y'){e.preventDefault();paintRedo();}});
 })();
 window.addEventListener('resize',resizePaint);
+
+/* ── CODE MODAL ───────────────────────────────── */
+(function(){
+    const projects={
+        chess:{
+            name:'Chess',file:'chess.js',
+            desc:'Fully playable chess engine — 1v1 local or vs CPU using minimax AI with alpha-beta pruning and positional scoring tables. Includes castling, en passant, check, checkmate & stalemate detection.',
+            tags:['JavaScript','AI / Minimax','HTML','CSS'],
+            preview:'// Chess Engine — Minimax AI with Alpha-Beta Pruning\nconst V = { P:100, N:320, B:330, R:500, Q:900, K:20000 };\n\nfunction minimax(brd, depth, α, β, isMax) {\n  if (depth === 0) return evaluate(brd);\n  let best = isMax ? -Infinity : Infinity;\n\n  for (const [from, to] of getLegalMoves(brd)) {\n    apply(brd, from, to);\n    const score = minimax(brd, depth-1, α, β, !isMax);\n    undo(brd, from, to);\n\n    if (isMax) { best = Math.max(best, score); α = Math.max(α, best); }\n    else       { best = Math.min(best, score); β = Math.min(β, best); }\n    if (β <= α) break; // alpha-beta pruning\n  }\n  return best;\n}'
+        },
+        yomi:{
+            name:'Simple Yomi Hustle',file:'yomi.js',
+            desc:'Card-based fighting game: Attack beats Grab, Block beats Attack, Grab beats Block. Easy mode uses a random CPU; Hard mode pattern-reads your last 6 moves with a 68% exploit rate. First to 3 rounds wins!',
+            tags:['Game Logic','JavaScript','AI','CSS'],
+            preview:"// Yomi Hustle — Pattern Recognition AI\nconst beats = { attack:'grab', block:'attack', grab:'block' };\n\nfunction cpuPick(history, difficulty) {\n  if (difficulty === 'easy') return randomMove();\n\n  // Tally the player's recent moves (last 6)\n  const freq = { attack:0, block:0, grab:0 };\n  history.slice(-6).forEach(m => freq[m]++);\n\n  // Find what the player uses most\n  const top = Object.entries(freq).sort((a,b)=>b[1]-a[1])[0][0];\n\n  // Counter their pattern 68% of the time\n  const counter = Object.keys(beats).find(k => beats[k] === top);\n  return Math.random() < 0.68 ? counter : randomMove();\n}"
+        },
+        paint:{
+            name:'Paint',file:'paint.js',
+            desc:'Browser-based drawing app using the Canvas API. Features pencil, eraser, flood-fill, line, rectangle, and circle tools. Supports undo/redo stack, color picker, adjustable brush size, and PNG export.',
+            tags:['Canvas API','JavaScript','HTML','CSS'],
+            preview:"// Paint — Flood Fill (Queue-Based BFS)\nfunction floodFill(canvas, sx, sy, fillColor) {\n  const ctx = canvas.getContext('2d');\n  const img = ctx.getImageData(0, 0, canvas.width, canvas.height);\n  const data = img.data;\n  const target = getPixel(data, sx, sy, canvas.width);\n\n  if (sameColor(target, fillColor)) return;\n  const queue = [[Math.round(sx), Math.round(sy)]];\n\n  while (queue.length) {\n    const [x, y] = queue.shift();\n    if (outOfBounds(x, y, canvas)) continue;\n    if (!sameColor(getPixel(data,x,y,canvas.width), target)) continue;\n    paintPixel(data, x, y, canvas.width, fillColor);\n    queue.push([x+1,y],[x-1,y],[x,y+1],[x,y-1]);\n  }\n  ctx.putImageData(img, 0, 0);\n}"
+        }
+    };
+    const overlay=document.getElementById('codeModalOverlay');
+    const cmTitleBar=document.getElementById('cmTitleBar');
+    const cmProjectName=document.getElementById('cmProjectName');
+    const cmDesc=document.getElementById('cmDesc');
+    const cmTags=document.getElementById('cmTags');
+    const cmPre=document.getElementById('cmPre');
+    function openModal(key){
+        const p=projects[key];
+        cmTitleBar.textContent=p.file;
+        cmProjectName.textContent=p.name;
+        cmDesc.textContent=p.desc;
+        cmTags.innerHTML=p.tags.map(t=>'<span>'+t+'</span>').join('');
+        cmPre.textContent=p.preview;
+        overlay.classList.add('open');
+        document.body.style.overflow='hidden';
+    }
+    function closeModal(){
+        overlay.classList.remove('open');
+        document.body.style.overflow='';
+    }
+    document.getElementById('cmClose').addEventListener('click',closeModal);
+    overlay.addEventListener('click',e=>{if(e.target===overlay)closeModal();});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&overlay.classList.contains('open'))closeModal();});
+    document.querySelectorAll('.view-code-btn').forEach(btn=>{
+        btn.addEventListener('click',e=>{e.preventDefault();openModal(btn.dataset.project);});
+    });
+})();
+
+/* ── CV BUTTON ────────────────────────────────── */
+(function(){
+    const btn=document.getElementById('downloadCVBtn');
+    const toast=document.getElementById('cvToast');
+    if(!btn||!toast)return;
+    let toastTimer;
+    btn.addEventListener('click',e=>{
+        e.preventDefault();
+        toast.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer=setTimeout(()=>toast.classList.remove('show'),2800);
+    });
+})();
 </script>
 </body>
 </html>
