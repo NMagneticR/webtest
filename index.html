@@ -274,14 +274,15 @@
             </div>
             <form class="contact-form" id="contactForm">
                 <div class="form-row">
-                    <div class="form-group"><label for="fname">First Name</label><input type="text" id="fname" placeholder="Juan" required></div>
-                    <div class="form-group"><label for="lname">Last Name</label><input type="text" id="lname" placeholder="dela Cruz" required></div>
+                    <div class="form-group"><label for="fname">First Name</label><input type="text" id="fname" name="firstName" placeholder="Juan" required></div>
+                    <div class="form-group"><label for="lname">Last Name</label><input type="text" id="lname" name="lastName" placeholder="dela Cruz" required></div>
                 </div>
-                <div class="form-group"><label for="cemail">Email Address *</label><input type="email" id="cemail" placeholder="juan@email.com" required></div>
-                <div class="form-group"><label for="subject">Subject</label><input type="text" id="subject" placeholder="Project Inquiry"></div>
-                <div class="form-group"><label for="message">Message</label><textarea id="message" rows="4" placeholder="Tell me about your project..." required></textarea></div>
+                <div class="form-group"><label for="cemail">Email Address *</label><input type="email" id="cemail" name="email" placeholder="juan@email.com" required></div>
+                <div class="form-group"><label for="subject">Subject</label><input type="text" id="subject" name="subject" placeholder="Project Inquiry"></div>
+                <div class="form-group"><label for="message">Message</label><textarea id="message" name="message" rows="4" placeholder="Tell me about your project..." required></textarea></div>
                 <button type="submit" class="btn-main form-submit"><i class="fas fa-paper-plane"></i> Send Message</button>
                 <p class="form-note">* I will get back to you within 24 hours.</p>
+                <p class="form-status" id="formStatus" style="display:none;margin-top:.6rem;font-size:.85rem;"></p>
             </form>
         </div>
     </div>
@@ -329,10 +330,25 @@ SC.addEventListener('scroll',()=>{
 });
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.querySelectorAll('.skill-fill').forEach(b=>b.style.width=b.dataset.width+'%');});},{threshold:0.3,root:SC});
 const ab=document.querySelector('.about');if(ab)obs.observe(ab);
-document.getElementById('contactForm').addEventListener('submit',function(e){
-    e.preventDefault();const btn=this.querySelector('.form-submit');
-    btn.innerHTML='<i class="fas fa-check"></i> Message Sent!';btn.style.background='#7c3aed';
-    setTimeout(()=>{btn.innerHTML='<i class="fas fa-paper-plane"></i> Send Message';btn.style.background='';this.reset();},3000);
+document.getElementById('contactForm').addEventListener('submit',async function(e){
+    e.preventDefault();const btn=this.querySelector('.form-submit');const status=document.getElementById('formStatus');
+    btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Sending...';btn.disabled=true;status.style.display='none';
+    try{
+        const res=await fetch('https://formspree.io/f/mlgyjqyp',{method:'POST',body:new FormData(this),headers:{Accept:'application/json'}});
+        if(res.ok){
+            btn.innerHTML='<i class="fas fa-check"></i> Message Sent!';btn.style.background='#16a34a';
+            status.textContent='Thank you! I\'ll get back to you within 24 hours.';status.style.cssText='display:block;color:#16a34a;margin-top:.6rem;font-size:.85rem;';
+            setTimeout(()=>{btn.innerHTML='<i class="fas fa-paper-plane"></i> Send Message';btn.style.background='';btn.disabled=false;status.style.display='none';this.reset();},4000);
+        }else{
+            btn.innerHTML='<i class="fas fa-times"></i> Failed — Try Again';btn.style.background='#dc2626';
+            status.textContent='Something went wrong. Please try again or email me directly.';status.style.cssText='display:block;color:#dc2626;margin-top:.6rem;font-size:.85rem;';
+            setTimeout(()=>{btn.innerHTML='<i class="fas fa-paper-plane"></i> Send Message';btn.style.background='';btn.disabled=false;},4000);
+        }
+    }catch(err){
+        btn.innerHTML='<i class="fas fa-times"></i> Network Error';btn.style.background='#dc2626';
+        status.textContent='Network error. Check your connection and try again.';status.style.cssText='display:block;color:#dc2626;margin-top:.6rem;font-size:.85rem;';
+        setTimeout(()=>{btn.innerHTML='<i class="fas fa-paper-plane"></i> Send Message';btn.style.background='';btn.disabled=false;},4000);
+    }
 });
 
 /* ── THEME ────────────────────────────────────── */
@@ -379,25 +395,26 @@ document.getElementById('themeToggle').addEventListener('click',()=>{
         K:[[-30,-40,-40,-50,-50,-40,-40,-30],[-30,-40,-40,-50,-50,-40,-40,-30],[-30,-40,-40,-50,-50,-40,-40,-30],[-30,-40,-40,-50,-50,-40,-40,-30],[-20,-30,-30,-40,-40,-30,-30,-20],[-10,-20,-20,-20,-20,-20,-20,-10],[20,20,0,0,0,0,20,20],[20,30,10,0,0,10,30,20]]
     };
     let board,turn,sel,over,mode='pvp',last=null,cap={w:[],b:[]};
+    let castleRights,epTarget;
     const col=p=>p?p[0]:null;
     const opp=c=>c==='w'?'b':'w';
     function newBoard(){return[['bR','bN','bB','bQ','bK','bB','bN','bR'],['bP','bP','bP','bP','bP','bP','bP','bP'],[null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null],['wP','wP','wP','wP','wP','wP','wP','wP'],['wR','wN','wB','wQ','wK','wB','wN','wR']];}
-    function init(){board=newBoard();turn='w';sel=null;over=false;last=null;cap={w:[],b:[]};render();setStatus(mode==='pvc'?'You are White — move first':'White to move');updCap();}
-    function getMoves(r,c,brd){
+    function init(){board=newBoard();turn='w';sel=null;over=false;last=null;cap={w:[],b:[]};castleRights={wK:true,wKR:true,wQR:true,bK:true,bKR:true,bQR:true};epTarget=null;render();setStatus(mode==='pvc'?'You are White — move first':'White to move');updCap();}
+    function getMoves(r,c,brd,cr,ep){
         const p=brd[r][c];if(!p)return[];
         const cl=col(p),t=p[1],ms=[];
         const add=(nr,nc)=>{if(nr>=0&&nr<8&&nc>=0&&nc<8&&col(brd[nr][nc])!==cl)ms.push([nr,nc]);};
         const slide=(dr,dc)=>{let nr=r+dr,nc=c+dc;while(nr>=0&&nr<8&&nc>=0&&nc<8){if(!brd[nr][nc])ms.push([nr,nc]);else{if(col(brd[nr][nc])!==cl)ms.push([nr,nc]);break;}nr+=dr;nc+=dc;}};
-        if(t==='P'){const d=cl==='w'?-1:1,sr=cl==='w'?6:1;if(r+d>=0&&r+d<8&&!brd[r+d][c]){ms.push([r+d,c]);if(r===sr&&!brd[r+2*d][c])ms.push([r+2*d,c]);}[-1,1].forEach(dc=>{if(c+dc>=0&&c+dc<8&&brd[r+d]&&brd[r+d][c+dc]&&col(brd[r+d][c+dc])!==cl)ms.push([r+d,c+dc]);});}
+        if(t==='P'){const d=cl==='w'?-1:1,sr=cl==='w'?6:1;if(r+d>=0&&r+d<8&&!brd[r+d][c]){ms.push([r+d,c]);if(r===sr&&!brd[r+2*d][c])ms.push([r+2*d,c]);}[-1,1].forEach(dc=>{if(c+dc>=0&&c+dc<8){if(brd[r+d]&&brd[r+d][c+dc]&&col(brd[r+d][c+dc])!==cl)ms.push([r+d,c+dc]);if(ep&&ep[0]===r+d&&ep[1]===c+dc)ms.push([r+d,c+dc]);}});}
         if(t==='R'||t==='Q')[[1,0],[-1,0],[0,1],[0,-1]].forEach(([dr,dc])=>slide(dr,dc));
         if(t==='B'||t==='Q')[[1,1],[1,-1],[-1,1],[-1,-1]].forEach(([dr,dc])=>slide(dr,dc));
         if(t==='N')[[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]].forEach(([dr,dc])=>add(r+dr,c+dc));
-        if(t==='K')[[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]].forEach(([dr,dc])=>add(r+dr,c+dc));
+        if(t==='K'){[[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]].forEach(([dr,dc])=>add(r+dr,c+dc));if(cr){const kRow=cl==='w'?7:0,kK=cl+'K',ksR=cl+'KR',qsR=cl+'QR';if(cr[kK]&&r===kRow&&c===4){if(cr[ksR]&&brd[kRow][7]===cl+'R'&&!brd[kRow][5]&&!brd[kRow][6]&&!inCheck(cl,brd)){const b1=brd.map(x=>[...x]);b1[kRow][5]=b1[kRow][4];b1[kRow][4]=null;if(!inCheck(cl,b1))ms.push([kRow,6]);}if(cr[qsR]&&brd[kRow][0]===cl+'R'&&!brd[kRow][1]&&!brd[kRow][2]&&!brd[kRow][3]&&!inCheck(cl,brd)){const b1=brd.map(x=>[...x]);b1[kRow][3]=b1[kRow][4];b1[kRow][4]=null;if(!inCheck(cl,b1))ms.push([kRow,2]);}}}}
         return ms;
     }
     function findKing(cl,brd){for(let r=0;r<8;r++)for(let c=0;c<8;c++)if(brd[r][c]===cl+'K')return[r,c];return null;}
     function inCheck(cl,brd){const kg=findKing(cl,brd);if(!kg)return false;for(let r=0;r<8;r++)for(let c=0;c<8;c++)if(brd[r][c]&&col(brd[r][c])===opp(cl)&&getMoves(r,c,brd).some(([kr,kc])=>kr===kg[0]&&kc===kg[1]))return true;return false;}
-    function legal(r,c,brd){return getMoves(r,c,brd).filter(([nr,nc])=>{const nb=brd.map(row=>[...row]);nb[nr][nc]=nb[r][c];nb[r][c]=null;return!inCheck(col(brd[r][c]),nb);});}
+    function legal(r,c,brd){return getMoves(r,c,brd,castleRights,epTarget).filter(([nr,nc])=>{const nb=brd.map(row=>[...row]);const p=brd[r][c];const isEP=p&&p[1]==='P'&&epTarget&&nr===epTarget[0]&&nc===epTarget[1]&&!brd[nr][nc];nb[nr][nc]=nb[r][c];nb[r][c]=null;if(isEP)nb[r][nc]=null;return!inCheck(col(brd[r][c]),nb);});}
     function anyLegal(cl,brd){for(let r=0;r<8;r++)for(let c=0;c<8;c++)if(brd[r][c]&&col(brd[r][c])===cl&&legal(r,c,brd).length)return true;return false;}
     function pst(p,r,c){const t=PST[p[1]];return t?t[p[0]==='w'?r:7-r][c]:0;}
     function eval_(brd){let s=0;for(let r=0;r<8;r++)for(let c=0;c<8;c++){const p=brd[r][c];if(!p)continue;const v=V[p[1]]+pst(p,r,c);s+=p[0]==='w'?v:-v;}return s;}
@@ -426,8 +443,18 @@ document.getElementById('themeToggle').addEventListener('click',()=>{
             const s=minimax(nb,2,-Infinity,Infinity,true);if(s<bs){bs=s;bm=m;}
         }
         if(!bm)return;
+        const bp=board[bm.fr][bm.fc];
+        const bIsCastle=bp&&bp[1]==='K'&&Math.abs(bm.nc-bm.fc)===2;
+        const bIsEP=bp&&bp[1]==='P'&&epTarget&&bm.nr===epTarget[0]&&bm.nc===epTarget[1]&&!board[bm.nr][bm.nc];
         const pk=board[bm.nr][bm.nc];if(pk)cap.b.push(pk);
+        if(bIsEP){cap.b.push(board[bm.fr][bm.nc]);board[bm.fr][bm.nc]=null;}
+        epTarget=bp[1]==='P'&&Math.abs(bm.nr-bm.fr)===2?[(bm.fr+bm.nr)/2,bm.nc]:null;
+        if(bp==='bK')castleRights.bK=false;
+        if(bp==='bR'&&bm.fr===0&&bm.fc===7)castleRights.bKR=false;
+        if(bp==='bR'&&bm.fr===0&&bm.fc===0)castleRights.bQR=false;
+        if(bm.nr===7&&bm.nc===7)castleRights.wKR=false;if(bm.nr===7&&bm.nc===0)castleRights.wQR=false;
         board[bm.nr][bm.nc]=board[bm.fr][bm.fc];board[bm.fr][bm.fc]=null;
+        if(bIsCastle){if(bm.nc===6){board[bm.nr][5]=board[bm.nr][7];board[bm.nr][7]=null;}else if(bm.nc===2){board[bm.nr][3]=board[bm.nr][0];board[bm.nr][0]=null;}}
         if(board[bm.nr][bm.nc]==='bP'&&bm.nr===7)board[bm.nr][bm.nc]='bQ';
         last={from:[bm.fr,bm.fc],to:[bm.nr,bm.nc]};turn='w';sel=null;render();updCap();afterMove('w');
     }
@@ -462,8 +489,22 @@ document.getElementById('themeToggle').addEventListener('click',()=>{
         if(sel){
             const lm=legal(sel[0],sel[1],board);const mv=lm.find(([mr,mc])=>mr===r&&mc===c);
             if(mv){
+                const p=board[sel[0]][sel[1]];
+                const isCastle=p&&p[1]==='K'&&Math.abs(c-sel[1])===2;
+                const isEP=p&&p[1]==='P'&&epTarget&&r===epTarget[0]&&c===epTarget[1]&&!board[r][c];
                 const pk=board[r][c];if(pk)cap[turn==='w'?'w':'b'].push(pk);
+                if(isEP){cap[turn==='w'?'w':'b'].push(board[sel[0]][c]);board[sel[0]][c]=null;}
+                epTarget=p[1]==='P'&&Math.abs(r-sel[0])===2?[(sel[0]+r)/2,c]:null;
+                if(p==='wK')castleRights.wK=false;
+                if(p==='bK')castleRights.bK=false;
+                if(p==='wR'&&sel[0]===7&&sel[1]===7)castleRights.wKR=false;
+                if(p==='wR'&&sel[0]===7&&sel[1]===0)castleRights.wQR=false;
+                if(p==='bR'&&sel[0]===0&&sel[1]===7)castleRights.bKR=false;
+                if(p==='bR'&&sel[0]===0&&sel[1]===0)castleRights.bQR=false;
+                if(r===7&&c===7)castleRights.wKR=false;if(r===7&&c===0)castleRights.wQR=false;
+                if(r===0&&c===7)castleRights.bKR=false;if(r===0&&c===0)castleRights.bQR=false;
                 board[r][c]=board[sel[0]][sel[1]];board[sel[0]][sel[1]]=null;
+                if(isCastle){if(c===6){board[r][5]=board[r][7];board[r][7]=null;}else if(c===2){board[r][3]=board[r][0];board[r][0]=null;}}
                 if(board[r][c]==='wP'&&r===0)board[r][c]='wQ';if(board[r][c]==='bP'&&r===7)board[r][c]='bQ';
                 last={from:[sel[0],sel[1]],to:[r,c]};sel=null;turn=opp(turn);render();afterMove(turn);
                 if(mode==='pvc'&&turn==='b'&&!over)setTimeout(doCPU,420);return;
